@@ -1,0 +1,116 @@
+.overlay {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  width: 40vw;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.close-icon {
+  font-size: 3.5rem;
+}
+
+.modal-title {
+  margin-bottom: 4rem;
+  font-size: 2.2rem;
+  color: var(--green-color-1);
+}
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.input__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+.input__container label {
+  display: flex;
+  flex: 1;
+  font-size: 1.5rem;
+  width: 50%;
+}
+.input__container .input__wrapper {
+  display: flex;
+  flex: 3;
+}
+.input__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.input__container .input__wrapper input,
+.input__container .input__wrapper textarea {
+  width: 100%;
+  outline: none;
+  background: var(--green-color);
+  border: none;
+  padding: 01rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+}
+.input__container .input__wrapper textarea {
+  min-height: 15rem;
+}
+.content-container button {
+  background: var(--green-color-1);
+  color: var(--white-color);
+  padding: 1rem;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  margin-left: auto;
+  cursor: pointer;
+}
+.input__container .input__wrapper.last {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.button-pdf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #3366cc !important;
+}
+.link-icon {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+.add-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-color) !important;
+}

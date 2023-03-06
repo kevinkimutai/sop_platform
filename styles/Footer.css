@@ -1,0 +1,54 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: var(--black-color);
+}
+.main-footer-section {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  background: var(--green-color);
+}
+.footer-logo__container {
+  display: flex;
+  flex: 1;
+
+  width: 40rem;
+}
+.footer-logo__container img {
+  width: 100%;
+  object-fit: contain;
+}
+.mission-container,
+.footer-story {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  padding: 4rem;
+}
+.mission-container h1,
+.footer-story h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+.mission-container p,
+.footer-story p {
+  font-size: 1.5rem;
+}
+.mission-paragraph {
+  margin-bottom: 2rem;
+}
+.footer-salutations {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background: var(--black-color);
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 1.5rem;
+  color: var(--white-color);
+}

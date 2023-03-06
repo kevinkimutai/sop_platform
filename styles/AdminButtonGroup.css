@@ -1,0 +1,37 @@
+.admin__btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin__btn-container button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.admin__btn-container button {
+  outline: none;
+  background: var(--green-color-1);
+  color: var(--white-color);
+  text-transform: capitalize;
+  cursor: pointer;
+  font-size: 1.4rem;
+  border-radius: 1rem;
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--green-color);
+  cursor: pointer;
+  /*box-shadow: 1px 1px 1px var(--brown-color), -1px -1px 1px var(--brown-color);*/
+  transition: all 0.3s;
+}
+.admin__btn-container button:first-child {
+  margin-right: 2rem;
+}
+.admin__btn-container button:hover {
+  background: var(--green-color);
+  border: 1px solid var(--green-color-1);
+  color: var(--black-color);
+}
+.admin__btn-container button span {
+  font-size: 3rem;
+  color: inherit;
+  margin-right: 1rem;
+}

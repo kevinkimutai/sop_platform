@@ -1,0 +1,254 @@
+"use client";
+
+import React, { useState, useEffect } from "react";
+
+import { HiOutlineCloud } from "react-icons/hi2";
+import { motion } from "framer-motion";
+
+import "../styles/NewSop.css";
+import { useFormik } from "formik";
+import { storage } from "../firebase.config";
+import {
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+} from "firebase/storage";
+import toast from "react-hot-toast";
+
+import * as Yup from "yup";
+import Loader from "./Loader";
+import { URL } from "@/utils/constants";
+
+type Disease = {
+  name: string;
+  description: string;
+};
+
+const NewSop = () => {
+  const [pdfSOP, setpdfSOP] = useState<string>();
+  const [loading, setLoading] = useState<boolean>();
+  const [uploading, setUploading] = useState<boolean>(false);
+  const [disease, setDisease] = useState<Disease[]>();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const res = await fetch(`${URL}/disease`);
+        const { data } = await res.json();
+        setDisease(data);
+        setLoading(false);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  const uploadSOP = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+
+    setLoading(true);
+    const pdfFile = e.target.files![0];
+    console.log(pdfFile);
+
+    const storageRef = ref(storage, `sops/ ${Date.now()} - ${pdfFile.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, pdfFile);
+
+    // Listen for state changes, errors, and completion of the upload.
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+        const progress =
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        console.log("Upload is " + progress + "% done");
+      },
+      (error) => {
+        console.log("Something went wrong while uploading", error);
+        setLoading(false);
+      },
+      () => {
+        // Upload completed successfully, now we can get the download URL
+        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+          setpdfSOP(downloadURL);
+          setLoading(false);
+          console.log(pdfSOP);
+        });
+      }
+    );
+  };
+
+  const deleteSOP = () => {
+    const pdfToDelete = pdfSOP;
+
+    const pdfRef = ref(storage, pdfToDelete);
+
+    // Delete the file
+    deleteObject(pdfRef)
+      .then(() => {
+        console.log(pdfSOP);
+        setpdfSOP("");
+
+        setLoading(true);
+
+        setTimeout(() => {
+          setLoading(false);
+        }, 4000);
+      })
+      .then(() => {
+        console.log(pdfSOP);
+      })
+      .catch((error) => {
+        console.log("Error deleting sop doc", error);
+      });
+  };
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      disease: "",
+      //created_by: "",
+    },
+
+    validationSchema: Yup.object({
+      title: Yup.string().required("*Required"),
+      description: Yup.string().required("*Required"),
+      //created_by: Yup.string().required("*Required"),
+      disease: Yup.string(),
+    }),
+    onSubmit: async (values) => {
+      try {
+        if (!pdfSOP) {
+          //TODO:ADD TOAST NOTIFICATION
+          return toast.error("Missing Pdf File");
+        }
+
+        setUploading(true);
+        const res = await fetch("http://localhost:3000/api/sop", {
+          method: "POST",
+          headers: {
+            "content-Type": "application/json",
+          },
+          body: JSON.stringify({ ...values, file: pdfSOP }),
+        });
+        const data = await res.json();
+        console.log("SUCCESS", data);
+
+        toast.success("pdf successfully added");
+        setUploading(false);
+      } catch (error) {
+        console.error(error);
+        setUploading(false);
+        toast.error("oops!Something went wrong");
+      }
+    },
+  });
+
+  return (
+    <>
+      {uploading ? (
+        <Loader />
+      ) : (
+        <motion.form
+          initial={{ y: -50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.5 }}
+          className="sop__form-section-container"
+          onSubmit={formik.handleSubmit}
+        >
+          <div className="file-container">
+            {loading ? (
+              <Loader />
+            ) : !pdfSOP ? (
+              <>
+                <p>upload sop here</p>
+                <label htmlFor="file-upload" className="custom-file-upload">
+                  <HiOutlineCloud className="file__upload-icon" />
+                </label>
+                <input id="file" type="file" name="file" onChange={uploadSOP} />
+              </>
+            ) : (
+              <button onClick={deleteSOP}>Delete SOP</button>
+            )}
+          </div>
+          <div className="input-container">
+            <div className="input__group">
+              <label>Title</label>
+              <input
+                id="title"
+                className="form-input"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.title}
+              />
+              {formik.touched.title && formik.errors.title ? (
+                <p className="input__error">{formik.errors.title}</p>
+              ) : null}
+            </div>
+            <div className="input__group">
+              <label>Description</label>
+              <textarea
+                id="description"
+                className="form-input form-input__textarea"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.description}
+              />
+              {formik.touched.description && formik.errors.description ? (
+                <p className="input__error">{formik.errors.description}</p>
+              ) : null}
+            </div>
+            <div className="input__group">
+              <select
+                name="program"
+                id="program"
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                value={formik.values.disease}
+              >
+                <option value="">Choose Disease</option>
+                {disease?.map((disease) => (
+                  <option key={disease.name} value={disease.name}>
+                    {disease.name}
+                  </option>
+                ))}
+                {/* 
+                <option value="elma">Elma</option>
+                <option value="g-power">G-Power</option>
+                <option value="dhibiti">Dhibiti</option> */}
+              </select>
+              {formik.touched.disease && formik.errors.disease ? (
+                <p className="input__error">{formik.errors.disease}</p>
+              ) : null}
+            </div>
+            {/* <div
+            className="input__group"
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            value={formik.values.created_by}
+          >
+            <select name="created by" id="created_by">
+              <option value="volvo">Admin</option>
+            </select>
+            </div> */}
+            {loading ? (
+              <Loader />
+            ) : (
+              <motion.button
+                whileTap={{ scale: 1.03 }}
+                type="submit"
+                className="form-submit__btn"
+              >
+                submit
+              </motion.button>
+            )}
+          </div>
+        </motion.form>
+      )}
+    </>
+  );
+};
+
+export default NewSop;
