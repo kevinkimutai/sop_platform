@@ -26,12 +26,14 @@ type SOP = {
   role?: string;
   createdAt?: string;
   name?: string;
+  disease?: string;
 };
 
 type PageProps = {
   searchTerm: string | undefined;
   url: string;
   type: string;
+  action?: boolean;
 };
 
 export default function DataTable(props: PageProps) {
@@ -40,16 +42,22 @@ export default function DataTable(props: PageProps) {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [id, setId] = useState<string>();
   const [type, setType] = useState<string>();
+  const [mode, setMode] = useState<string>();
 
-  const modalHandler = (bool: boolean, type?: string, id?: string) => {
+  const modalHandler = (
+    bool: boolean,
+    type?: string,
+    id?: string,
+    mode?: string
+  ) => {
     setShowModal(bool);
     setId(id);
     setType(type);
+    setMode(mode);
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      console.log(props.searchTerm);
       try {
         setIsLoading(true);
         const res = await fetch(
@@ -59,7 +67,7 @@ export default function DataTable(props: PageProps) {
         );
         const { data } = await res.json();
         setSops(data);
-        toast.success("successfully checked");
+        toast.success("Data Successfully Fetched!!");
         setIsLoading(false);
       } catch (error) {
         console.error(error);
@@ -67,7 +75,6 @@ export default function DataTable(props: PageProps) {
       }
     };
     fetchData();
-    console.log(sops);
   }, [props.searchTerm]);
 
   // const debouncedSearch = debounce((searchTerm: string) => {
@@ -83,8 +90,6 @@ export default function DataTable(props: PageProps) {
 
   let tRow, tDetails;
 
-  console.log("TYPE", props.type);
-
   if (props.type === "user") {
     tRow = (
       <tr>
@@ -93,7 +98,7 @@ export default function DataTable(props: PageProps) {
         <th>Email</th>
         <th>Role</th>
         <th>Created At:</th>
-        <th>Action</th>
+        {props.action ? <th>Action</th> : null}
       </tr>
     );
 
@@ -117,12 +122,19 @@ export default function DataTable(props: PageProps) {
             //@ts-ignore
           }).format(new Date(sop.createdAt))}
         </td>
-        <td>
-          <div className="sop-actions">
-            <EditAction id={sop._id} type={"user"} showModal={modalHandler} />
-            <DeleteAction />
-          </div>
-        </td>
+        {props.action ? (
+          <td>
+            <div className="sop-actions">
+              <EditAction id={sop._id} type={"user"} showModal={modalHandler} />
+              <DeleteAction
+                id={sop._id}
+                type={"user"}
+                showModal={modalHandler}
+                mode={"delete"}
+              />
+            </div>
+          </td>
+        ) : null}
       </tr>
     ));
   }
@@ -132,21 +144,21 @@ export default function DataTable(props: PageProps) {
       <tr>
         <th>No.</th>
         <th>Title</th>
-        <th>Program</th>
+        <th>Disease</th>
         <th>Description</th>
         <th>Updated At:</th>
-        <th>Action</th>
+        {props.action ? <th>Action</th> : null}
       </tr>
     );
     tDetails = sops.map((sop: SOP, indx: number) => (
       <tr key={sop._id}>
         <td>{indx + 1}.</td>
         <td>
-          <Link href={sop.file} className="link-title">
+          <Link href={sop.file} className="link-title" target="_blank">
             {sop.title}
           </Link>
         </td>
-        <td>{sop.program}</td>
+        <td>{sop.disease}</td>
         <td>
           <div className="sop-desc">{sop.description}</div>
         </td>
@@ -158,12 +170,20 @@ export default function DataTable(props: PageProps) {
             //@ts-ignore
           }).format(new Date(sop.createdAt))}
         </td>
-        <td>
-          <div className="sop-actions">
-            <EditAction id={sop._id} type={"sop"} showModal={modalHandler} />
-            <DeleteAction />
-          </div>
-        </td>
+
+        {props.action ? (
+          <td>
+            <div className="sop-actions">
+              <EditAction id={sop._id} type={"sop"} showModal={modalHandler} />
+              <DeleteAction
+                id={sop._id}
+                type={"sop"}
+                showModal={modalHandler}
+                mode={"delete"}
+              />
+            </div>
+          </td>
+        ) : null}
       </tr>
     ));
   }
@@ -175,7 +195,7 @@ export default function DataTable(props: PageProps) {
         <th>No.</th>
         <th>Name</th>
         <th>Description</th>
-        <th>Action</th>
+        {props.action ? <th>Action</th> : null}
       </tr>
     );
     tDetails = sops.map((sop: SOP, indx: number) => (
@@ -189,12 +209,15 @@ export default function DataTable(props: PageProps) {
         <td>
           <div className="sop-desc">{sop.description}</div>
         </td>
-        <td>
-          <div className="sop-actions">
-            <EditAction />
-            <DeleteAction />
-          </div>
-        </td>
+
+        {props.action ? (
+          <td>
+            <div className="sop-actions">
+              <EditAction />
+              <DeleteAction />
+            </div>
+          </td>
+        ) : null}
       </tr>
     ));
   }
@@ -204,12 +227,13 @@ export default function DataTable(props: PageProps) {
         <Modal
           id={id as string}
           type={type as string}
+          mode={mode}
           showModal={modalHandler}
         />
       ) : isLoading ? (
         <Loader />
       ) : (
-        <motion.table className="GeneratedTable" id={props.type}>
+        <motion.table className="GeneratedTable">
           <thead>{tRow}</thead>
           <tbody>
             {/*TODO:NOTIFICATIONS AND SPINNERS AS WELL AS NO-SOP FOUND*/}

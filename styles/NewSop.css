@@ -67,10 +67,14 @@
   border: 1px solid var(--green-color-1);
   outline: none;
 }
+.input-container .input__group select option {
+  font-size: 1.5rem;
+}
 .input-container .input__group input:focus,
 .input-container .input__group textarea:focus,
 .input-container .input__group select:focus {
   border: 1.5px solid var(--green-color-1);
+  background: var(--green-color);
 }
 .input-container .input__group textarea {
   min-height: 14rem;
@@ -90,9 +94,19 @@
 .input__error {
   margin-left: auto;
   color: red;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
 .sop__form-section-container.last_form {
   width: 60% !important;
   margin-left: auto;
+}
+.delete__pdf--btn {
+  padding: 1rem;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  color: var(--white-color);
+  background: red;
+  cursor: pointer;
+  border-radius: 0.5rem;
 }

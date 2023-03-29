@@ -1,16 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 import "../../../../styles/auth.css";
 import { signIn } from "next-auth/react";
-import Image from "next/image";
+
 import { motion } from "framer-motion";
+import { toast } from "react-hot-toast";
+import Loader from "@/components/Loader";
 
 const LoginPage = () => {
+  const [loading, setLoading] = useState<boolean>(false);
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -36,12 +39,21 @@ const LoginPage = () => {
         ),
     }),
     onSubmit: async (values) => {
-      await signIn("credentials", {
-        email: values.email,
-        password: values.password,
-        redirect: true,
-        callbackUrl: "/",
-      });
+      try {
+        setLoading(true);
+        await signIn("credentials", {
+          email: values.email,
+          password: values.password,
+
+          redirect: true,
+          callbackUrl: "/",
+        });
+        values = formik.initialValues;
+        toast.success("successfully Logged in!!");
+        setLoading(false);
+      } catch (error) {
+        toast.error("Wrong email or password!!");
+      }
     },
   });
   return (
@@ -56,7 +68,7 @@ const LoginPage = () => {
         />
       </div>
       <form className="auth-container" onSubmit={formik.handleSubmit}>
-        <h1>Login</h1>
+        {loading ? <Loader /> : <h1>Login</h1>}
         <div className="input-container">
           <label>Email:</label>
           <div className="input-wrapper">
@@ -96,7 +108,7 @@ const LoginPage = () => {
           </Link>
           to continue
         </p>
-        <motion.button whileTap={{ scale: 1.1 }} type="submit">
+        <motion.button whileHover={{ scale: 1.1 }} type="submit">
           Submit
         </motion.button>
       </form>
@@ -105,3 +117,21 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
+
+// const check = {
+//   user: {
+//     user: {
+//       _id: "63edcc26fef029171f821f2b",
+//       fname: "admin",
+//       lname: "admin",
+//       email: "admin@admin.com",
+//       role: "admin",
+//       password: "$2a$10$AN5daotggLhfmqmrsDBoDe0Ni9K1LO9K56iYntS6Gva7VVmjxclxG",
+//       createdAt: "2023-02-16T06:12:46.359Z",
+//       __v: 0,
+//     },
+//     token:
+//       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZWRjYzI2ZmVmMDI5MTcxZjgyMWYyYiIsImlhdCI6MTY3ODg3MjE0OSwiZXhwIjoxNjc4ODczOTQ5fQ.z3RZ0aVctcDZnlAYeUbzwKvQmJKy-9NAbAmACM4sjLg",
+//   },
+//   expires: "2023-04-14T09:22:37.744Z",
+// };

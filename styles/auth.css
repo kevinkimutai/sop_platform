@@ -102,3 +102,30 @@
 .auth-link__container {
   margin-left: auto;
 }
+@media screen and (max-width: 1100px) {
+  .auth-container {
+    padding: 4rem 8rem;
+  }
+}
+@media screen and (max-width: 900px) {
+  .auth-container {
+    padding: 4rem;
+  }
+}
+@media screen and (max-width: 760px) {
+  .auth-container {
+    padding: 2rem;
+  }
+  .illustration-container {
+    display: flex;
+    flex: 0.2;
+  }
+}
+@media screen and (max-width: 700px) {
+  .illustration-container {
+    display: none;
+  }
+  .auth-container {
+    max-width: 70%;
+  }
+}

@@ -9,7 +9,6 @@ import { dbConnect } from "@/utils/dbconnect";
 
 //FIND,FILTER,SORT,LIMIT,PAGINATE SOPs
 export const getSop = async (req: NextApiRequest, res: NextApiResponse) => {
-  console.log("ALSO ME ");
   try {
     //1. Filtering
     const queryObj = { ...req.query };
@@ -41,7 +40,7 @@ export const getSop = async (req: NextApiRequest, res: NextApiResponse) => {
     //5.Pagination
 
     const page = +req.query.page! || 1;
-    const limit = +req.query.limit! || 10;
+    const limit = +req.query.limit! || 100;
 
     const skip = (page - 1) * limit;
 
@@ -64,17 +63,15 @@ export const getSop = async (req: NextApiRequest, res: NextApiResponse) => {
 //CREATE A NEW SOP
 
 export const createSOP = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { title, description, program, file } = req.body;
-  console.log(req.body);
+  const { title, description, disease, file } = req.body;
+  if (!disease || !title || !description || !file) {
+    return res.status(404).json({ status: "Missing input fields" });
+  }
+
   try {
     await dbConnect();
     // Insert document
-    const data = await SOP.create({
-      title,
-      description,
-      program,
-      file,
-    });
+    const data = await SOP.create(req.body);
 
     // Send response
     res.status(200).json({ message: "Data saved to database!", data });
@@ -96,7 +93,6 @@ export const getSingleSOP = async (
   res: NextApiResponse,
   id: string
 ) => {
-  console.log("IM THE ONE EXECUTING");
   try {
     await dbConnect();
     // Insert document
@@ -119,7 +115,6 @@ export const deleteSOP = async (
   res: NextApiResponse,
   id: string
 ) => {
-  console.log("I AM ALSO BEING ACCESSED");
   try {
     await dbConnect();
     const data = await SOP.findByIdAndDelete(id);

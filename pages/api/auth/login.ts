@@ -18,21 +18,25 @@ export default async function handler(
 
     //1.check if user exists
     if (!email || !password)
-      return new Error("Enter Email and Password to log in");
+      return res
+        .status(400)
+        .json({ message: "Enter Email and Password to log in" });
 
     //2.check if email exists
     const user = await User.findOne({ email }).select("+password");
     if (!user || !(await user.comparePasswords(password, user.password))) {
-      return new Error("Wrong email or password, Try again!");
+      return res
+        .status(401)
+        .json({ message: "Wrong email or password, Try again!" });
     } else {
       //3. success,return auth
       const token = getToken(user._id);
 
-      setCookie(null, "session", token, {
-        maxAge: 60 * 60 * 24, // cookie will expire in 1 day
-        path: "/", // cookie is available on all pages
-        httpOnly: true, // cookie cannot be accessed by client-side JavaScript
-      });
+      // setCookie(null, "session", token, {
+      //   maxAge: 60 * 60 * 24, // cookie will expire in 1 day
+      //   path: "/", // cookie is available on all pages
+      //   httpOnly: true, // cookie cannot be accessed by client-side JavaScript
+      // });
 
       res.status(200).json({
         status: "success",
@@ -42,5 +46,7 @@ export default async function handler(
         },
       });
     }
-  } catch (error) {}
+  } catch (error) {
+    console.error(error);
+  }
 }

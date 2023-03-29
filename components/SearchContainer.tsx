@@ -13,7 +13,7 @@ type PageProps = {
 const SearchContainer = (props: PageProps) => {
   return (
     <div className="search-container__wrapper">
-      <SearchForm search={props.search} input={props.input} />
+      <SearchForm search={props.search} type={props.input} />
       {props.addBtn && (
         <AdminButtonGroup show={props.show} type={props.addBtn} />
       )}

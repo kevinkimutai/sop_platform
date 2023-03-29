@@ -7,7 +7,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("METHOD", req.method);
   const { userId } = req.query;
   switch (req.method) {
     case "GET":

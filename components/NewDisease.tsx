@@ -30,7 +30,6 @@ const NewDisease = () => {
           body: JSON.stringify(values),
         });
         const data = await res.json();
-        console.log("SUCCESS", data);
 
         setLoading(false);
       } catch (error) {

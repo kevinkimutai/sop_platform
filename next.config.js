@@ -12,7 +12,7 @@ const nextConfig = {
   env: {
     MONGODB_URL:
       "mongodb+srv://kevingrand:grand254@grnd.ajlox.mongodb.net/sop_db?retryWrites=true&w=majority",
-    NEXT_AUTH_SECRET: "etY5STdFhG5Wpyt",
+    NEXTAUTH_SECRET: "etY5STdFhG5Wpyt",
     SECRET_ACCESS_TOKEN_JWT: "jwt-access-token-FD>$?!U+k5XQVq6",
     SECRET_REFRESH_TOKEN_JWT: "jwt-refresh-token-etY5STdFhG5Wpyt",
     REFRESH_TOKEN_EXPIRES_IN: "90d",

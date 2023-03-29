@@ -45,6 +45,6 @@ export default async function handler(
       data: { user: newUser, token: accessToken },
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 }

@@ -44,7 +44,7 @@ export const getDiseases = async (
     //5.Pagination
 
     const page = +req.query.page! || 1;
-    const limit = +req.query.limit! || 10;
+    const limit = +req.query.limit! || 100;
 
     const skip = (page - 1) * limit;
 
@@ -59,7 +59,7 @@ export const getDiseases = async (
       data,
     });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -87,7 +87,7 @@ export const getOneDisease = async (
     // Send response
     res.status(200).json({ message: "success", data });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -147,7 +147,7 @@ export const createDisease = async (
 ) => {
   try {
     await dbConnect();
-    console.log("REQBODY", req.body);
+
     const { name, description } = req.body;
 
     if (!description || !name) {

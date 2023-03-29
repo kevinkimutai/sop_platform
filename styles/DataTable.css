@@ -50,3 +50,27 @@ table.GeneratedTable tbody tr td {
   cursor: pointer;
   font-size: 1.5rem;
 }
+
+@media screen and (max-width: 990px) {
+  .sop-desc {
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+  }
+}
+@media screen and (max-width: 768px) {
+  .sop-desc {
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+  }
+}
+@media screen and (max-width: 670px) {
+  .sop-desc {
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+  }
+}
+@media screen and (max-width: 662px) {
+  table.GeneratedTable {
+    overflow: scroll;
+  }
+}

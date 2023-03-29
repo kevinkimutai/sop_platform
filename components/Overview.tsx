@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { URL } from "@/utils/constants";
 import Loader from "./Loader";
 import "../styles/AdminOverview.css";
+import Spinner from "./Spinner";
 
 type PageProps = {
   icon: any;
@@ -40,7 +41,7 @@ const Overview = (props: PageProps) => {
     >
       <div className="icon-container">{props.icon}</div>
       <div className="overview-title">{props.title}</div>
-      <div className="overview-total">{isLoading ? <Loader /> : length}</div>
+      <div className="overview-total">{isLoading ? <Spinner /> : length}</div>
     </motion.div>
   );
 };

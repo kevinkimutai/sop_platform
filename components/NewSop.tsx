@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 
 import { HiOutlineCloud } from "react-icons/hi2";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 
 import "../styles/NewSop.css";
 import { useFormik } from "formik";
@@ -19,13 +19,18 @@ import toast from "react-hot-toast";
 import * as Yup from "yup";
 import Loader from "./Loader";
 import { URL } from "@/utils/constants";
+import Spinner from "./Spinner";
 
 type Disease = {
   name: string;
   description: string;
 };
 
-const NewSop = () => {
+type PageProps = {
+  show: (bool: boolean) => void;
+};
+
+const NewSop = (props: PageProps) => {
   const [pdfSOP, setpdfSOP] = useState<string>();
   const [loading, setLoading] = useState<boolean>();
   const [uploading, setUploading] = useState<boolean>(false);
@@ -51,7 +56,6 @@ const NewSop = () => {
 
     setLoading(true);
     const pdfFile = e.target.files![0];
-    console.log(pdfFile);
 
     const storageRef = ref(storage, `sops/ ${Date.now()} - ${pdfFile.name}`);
     const uploadTask = uploadBytesResumable(storageRef, pdfFile);
@@ -74,7 +78,6 @@ const NewSop = () => {
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           setpdfSOP(downloadURL);
           setLoading(false);
-          console.log(pdfSOP);
         });
       }
     );
@@ -88,7 +91,6 @@ const NewSop = () => {
     // Delete the file
     deleteObject(pdfRef)
       .then(() => {
-        console.log(pdfSOP);
         setpdfSOP("");
 
         setLoading(true);
@@ -97,9 +99,7 @@ const NewSop = () => {
           setLoading(false);
         }, 4000);
       })
-      .then(() => {
-        console.log(pdfSOP);
-      })
+      .then(() => {})
       .catch((error) => {
         console.log("Error deleting sop doc", error);
       });
@@ -126,7 +126,7 @@ const NewSop = () => {
         }
 
         setUploading(true);
-        const res = await fetch("http://localhost:3000/api/sop", {
+        const res = await fetch(`${URL}/sop`, {
           method: "POST",
           headers: {
             "content-Type": "application/json",
@@ -134,20 +134,23 @@ const NewSop = () => {
           body: JSON.stringify({ ...values, file: pdfSOP }),
         });
         const data = await res.json();
-        console.log("SUCCESS", data);
 
-        toast.success("pdf successfully added");
+        toast.success(`Successfully Added ${data.title} SOP`);
         setUploading(false);
+        values = formik.initialValues;
+        setTimeout(() => {
+          props.show(false);
+        }, 2500);
       } catch (error) {
         console.error(error);
         setUploading(false);
-        toast.error("oops!Something went wrong");
+        toast.error("oops!,Something went wrong");
       }
     },
   });
 
   return (
-    <>
+    <AnimatePresence>
       {uploading ? (
         <Loader />
       ) : (
@@ -155,22 +158,30 @@ const NewSop = () => {
           initial={{ y: -50, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ duration: 0.5 }}
+          exit={{ y: -50, opacity: 0.5 }}
           className="sop__form-section-container"
           onSubmit={formik.handleSubmit}
         >
           <div className="file-container">
             {loading ? (
-              <Loader />
+              <Spinner />
             ) : !pdfSOP ? (
               <>
                 <p>upload sop here</p>
                 <label htmlFor="file-upload" className="custom-file-upload">
                   <HiOutlineCloud className="file__upload-icon" />
                 </label>
-                <input id="file" type="file" name="file" onChange={uploadSOP} />
+                <input
+                  id="custom-file"
+                  type="file"
+                  name="file"
+                  onChange={uploadSOP}
+                />
               </>
             ) : (
-              <button onClick={deleteSOP}>Delete SOP</button>
+              <button onClick={deleteSOP} className="delete__pdf--btn">
+                Delete Uploaded SOP
+              </button>
             )}
           </div>
           <div className="input-container">
@@ -202,8 +213,8 @@ const NewSop = () => {
             </div>
             <div className="input__group">
               <select
-                name="program"
-                id="program"
+                name="disease"
+                id="disease"
                 onBlur={formik.handleBlur}
                 onChange={formik.handleChange}
                 value={formik.values.disease}
@@ -234,7 +245,7 @@ const NewSop = () => {
             </select>
             </div> */}
             {loading ? (
-              <Loader />
+              <Spinner />
             ) : (
               <motion.button
                 whileTap={{ scale: 1.03 }}
@@ -247,7 +258,7 @@ const NewSop = () => {
           </div>
         </motion.form>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 

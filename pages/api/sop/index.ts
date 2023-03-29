@@ -8,7 +8,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  console.log("METHOD", req.method);
   switch (req.method) {
     case "GET":
       getSop(req, res);

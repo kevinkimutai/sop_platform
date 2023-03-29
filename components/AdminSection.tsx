@@ -26,22 +26,31 @@ const AdminSection = (props: PageProps) => {
     <>
       <Toaster containerClassName="toast" />
 
-      <section className="main-section">
+      <section className="main-section admin">
+        {/* <button type="button" className="">
+          MENU
+        </button> */}
         <AdminOverview />
         {/*SOP*/}
-        <h1 className="admin-title">SOP's</h1>
+        <h1 className="admin-title" id="sop">
+          SOP's
+        </h1>
         <Suspense fallback={<Loader />}>
-          <DataContainer show={"sop"} type="sop" />
+          <DataContainer show={"sop"} type="sop" action={true} />
         </Suspense>
 
         {/*USERS*/}
-        <h1 className="admin-title">User's</h1>
+        <h1 className="admin-title" id="user">
+          User's
+        </h1>
         <Suspense fallback={<Loader />}>
-          <DataContainer type="user" />
+          <DataContainer type="user" action={true} />
         </Suspense>
 
         {/*DISEASES*/}
-        <h1 className="admin-title">Infectious Diseases</h1>
+        <h1 className="admin-title" id="disease">
+          Infectious Diseases
+        </h1>
         <Suspense fallback={<Loader />}>
           <DataContainer show="disease" type="disease" />
         </Suspense>

@@ -1,38 +1,48 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 
-import {
-  HiFolderOpen,
-  HiHome,
-  HiOutlineCog6Tooth,
-  HiOutlineUsers,
-} from "react-icons/hi2";
+import { HiFolderOpen, HiHome, HiCog6Tooth, HiUsers } from "react-icons/hi2";
 import { motion } from "framer-motion";
 
 import "../styles/Sidebar.css";
 
 const Sidebar = () => {
-  function handleScrollClick() {
-    const section = document.querySelector("#my-section")!;
-    section.scrollIntoView({ behavior: "smooth" });
+  const [active, setActive] = useState<string>("overview");
+  function handleScrollClick(id: string) {
+    const section = document.getElementById(id);
+    section?.scrollIntoView({ behavior: "smooth" });
+    setActive(id);
   }
   return (
     <aside className="sidebar">
       <ul>
-        <li className="active">
+        <li
+          className={`${active === "overview" ? "active" : ""}`}
+          onClick={() => handleScrollClick("overview")}
+        >
           <HiHome className="sidebar-icon" />
           OverView
         </li>
-        <li>
+        <li
+          className={`${active === "sop" ? "active" : ""}`}
+          onClick={() => handleScrollClick("sop")}
+        >
           <HiFolderOpen className="sidebar-icon" />
           Sop's
         </li>
-        <li>
-          <HiOutlineUsers className="sidebar-icon" />
+        <li
+          className={`${active === "user" ? "active" : ""}`}
+          onClick={() => handleScrollClick("user")}
+        >
+          <HiUsers className="sidebar-icon" />
           Users
         </li>
-        <li>
-          <HiOutlineCog6Tooth className="sidebar-icon" />
-          Program
+        <li
+          className={`${active === "disease" ? "active" : ""}`}
+          onClick={() => handleScrollClick("disease")}
+        >
+          <HiCog6Tooth className="sidebar-icon" />
+          Disease
         </li>
       </ul>
     </aside>

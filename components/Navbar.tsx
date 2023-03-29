@@ -1,12 +1,16 @@
+//@ts-nocheck
 "use client";
 
 import React from "react";
 
 import { HiMenu } from "react-icons/hi";
+import { motion } from "framer-motion";
 
 import "../styles/Navbar.css";
 
 import { signIn, signOut, useSession } from "next-auth/react";
+import Link from "next/link";
+import { HiUserCircle } from "react-icons/hi2";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -15,7 +19,9 @@ const Navbar = () => {
     <nav className="navbar-container">
       {/*LOGO */}
       <div className="logo">
-        <img src="/logo.jpg" alt="logo-image" className="logo-img" />
+        <Link href={"/"}>
+          <img src="/logo.jpg" alt="logo-image" className="logo-img" />
+        </Link>
       </div>
 
       {/* Users Profile */}
@@ -27,28 +33,33 @@ const Navbar = () => {
                 <img src="/avatar.png" alt="logo-image" />
               </div>
 
-              <span>
-                {/*@ts-ignore */}
-                {session.user?.fname} {session.user.lname}
-              </span>
+              <span>{session.user.user.fname}</span>
               {/*TODO:STYLE signout BUTTON*/}
-              <button
+              <motion.button
+                whileTap={{ scale: 1.1 }}
+                whileHover={{ scale: 1.1 }}
+                className="sign-out__btn"
                 onClick={() => {
                   signOut();
                 }}
               >
                 SIGNOUT
-              </button>
+              </motion.button>
             </>
           ) : (
-            <button className="sign-in__btn" onClick={() => signIn()}>
-              sign in
-            </button>
+            <motion.button
+              whileTap={{ scale: 1.1 }}
+              whileHover={{ scale: 1.1 }}
+              className="sign-in__btn"
+              onClick={() => signIn()}
+            >
+              <HiUserCircle className="sign-in__icon" /> sign in
+            </motion.button>
           )}
         </div>
-        <button className="hamburger-btn">
+        {/* <motion.button whileHover={{ scale: 1.1 }} className="hamburger-btn">
           <HiMenu className="hamburger-icon" />
-        </button>
+        </motion.button> */}
       </div>
     </nav>
   );

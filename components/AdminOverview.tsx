@@ -14,29 +14,6 @@ import "../styles/AdminOverview.css";
 import Overview from "./Overview";
 import { HiOutlineCubeTransparent } from "react-icons/hi";
 
-// const sampleData = [
-//   {
-//     icon: <HiOutlineFolder className="overview-icon " />,
-//     title: "Total Sop Documents",
-//     total: 200,
-//   },
-//   {
-//     icon: <HiOutlineUsers className="overview-icon " />,
-//     title: "Total Users",
-//     total: 56,
-//   },
-//   {
-//     icon: <HiOutlineCog6Tooth className="overview-icon " />,
-//     title: "Programs",
-//     total: 12,
-//   },
-//   {
-//     icon: <HiPuzzlePiece className="overview-icon " />,
-//     title: "Partners",
-//     total: 5,
-//   },
-// ];
-
 const AdminOverview = () => {
   return (
     <section className="overview-section">

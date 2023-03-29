@@ -1,4 +1,5 @@
-import { SOP } from "@/lib/model/sop";
+//@ts-ignore
+import Disease from "@/lib/model/disease";
 
 // Define your API route
 import { dbConnect } from "@/utils/dbconnect";
@@ -14,12 +15,13 @@ export default async function handler(
   try {
     await dbConnect();
     // Use Mongoose's "find" method with a regular expression to search the "title" field
-    const results = await SOP.find({
-      title: { $regex: searchText, $options: "i" },
+    //@ts-ignore
+    const results = await Disease.find({
+      name: { $regex: searchText, $options: "i" },
     });
 
     if (!results) {
-      res.status(404).json({ message: "No Sops found!" });
+      res.status(404).json({ message: "No users found!" });
     }
 
     res.json({ success: true, data: results });

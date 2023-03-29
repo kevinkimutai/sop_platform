@@ -35,8 +35,16 @@ export const authOptions: NextAuthOptions = {
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" },
         });
+
+        //Check if response was successful
+        if (!res.ok) {
+          throw new Error("Invalid credentials");
+        }
+
         const user = await res.json();
+
         const { data } = user;
+
         // If no error and we have user data, return it
         if (res.ok && data) {
           return data;
@@ -52,23 +60,23 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: "/auth/login",
   },
-  secret: process.env.NEXT_AUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    // async jwt({ token, user }) {
-    //   console.log("1ST CLG", { token, user });
-    //   token.user = user;
-    //   return { ...token, ...user };
-    // },
+    async jwt({ token, user, ...rest }) {
+      // code to modify JWT token
+      user && (token.user = user);
+      return token;
+    },
     async session({ session, token, user }) {
-      console.log("2nd CLG", { token, session, user });
-      // Send properties to the client, like an access_token from a provider.
-      //@ts-ignore
-      user = token.user;
+      // Set session.user to the user object
 
-      session.user = user;
+      //@ts-ignore
+      session.user = token.user;
 
       return session;
     },
   },
 };
 export default NextAuth(authOptions);
+
+//

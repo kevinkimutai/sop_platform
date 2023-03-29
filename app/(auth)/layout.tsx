@@ -1,15 +1,25 @@
-import "../../styles/globals.css";
+"use client";
 
-export default function RootLayout({
-  children,
-}: {
+import { Toaster } from "react-hot-toast";
+import "../../styles/globals.css";
+import { SessionProvider } from "next-auth/react";
+
+interface Props {
   children: React.ReactNode;
-}) {
+  session: any;
+}
+
+export default function RootLayout({ children, session }: Props) {
   return (
     <html>
       <head />
       <body>
-        <div className="wrapper">{children}</div>
+        <SessionProvider session={session}>
+          <div className="wrapper">
+            <Toaster containerClassName="toast" />
+            {children}
+          </div>
+        </SessionProvider>
       </body>
     </html>
   );

@@ -51,3 +51,6 @@ a {
   width: 100%;
   background: var(--white-color);
 }
+.toast {
+  font-size: 6.5rem;
+}

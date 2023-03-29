@@ -37,7 +37,7 @@ export const getUsers = async (req: NextApiRequest, res: NextApiResponse) => {
     //5.Pagination
 
     const page = +req.query.page! || 1;
-    const limit = +req.query.limit! || 10;
+    const limit = +req.query.limit! || 100;
 
     const skip = (page - 1) * limit;
 
@@ -70,7 +70,6 @@ export const getUser = async (
   id: string
 ) => {
   try {
-    console.log("GETTING YOUR USER");
     await dbConnect();
     // Insert document
     const data = await User.findById(id);
@@ -82,7 +81,7 @@ export const getUser = async (
     // Send response
     res.status(200).json({ message: "success", data });
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
