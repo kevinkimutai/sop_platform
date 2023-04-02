@@ -1,0 +1,16 @@
+.edit-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background: var(--green-color);
+  border-radius: 0.5rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 0.8rem;
+}
+
+.edit-icon {
+  font-size: 1.3rem;
+}
