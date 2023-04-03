@@ -1,0 +1,211 @@
+.overlay {
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: scroll;
+}
+
+.modal {
+  background-color: white;
+  width: 40vw;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+  position: relative;
+  min-height: 40vh;
+  margin-top: 10rem;
+}
+
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+
+  font-weight: bold;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.close-icon {
+  font-size: 3.5rem;
+}
+
+.modal-title {
+  margin-bottom: 4rem;
+  font-size: 2.2rem;
+  color: var(--green-color-1);
+}
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.input__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  margin-bottom: 2rem;
+  width: 100%;
+}
+.input__container label {
+  display: flex;
+  flex: 1;
+  font-size: 1.5rem;
+  width: 50%;
+}
+.input__container .input__wrapper {
+  display: flex;
+  flex: 3;
+}
+.input__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.input__container .input__wrapper input,
+.input__container .input__wrapper textarea,
+.input__container .input__wrapper select {
+  width: 100%;
+  outline: none;
+  background: var(--green-color);
+  border: none;
+  padding: 01rem;
+  font-size: 1.5rem;
+  border-radius: 1rem;
+}
+.input__container .input__wrapper textarea {
+  min-height: 15rem;
+}
+.input__container .input__wrapper select {
+  width: 50% !important;
+}
+.input__container .input__wrapper select option {
+  font-size: 1.3rem;
+}
+.content-container button {
+  background: var(--green-color-1);
+  color: var(--white-color);
+  padding: 1rem;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  margin-top: 1rem;
+  margin-left: auto;
+  cursor: pointer;
+}
+.input__container .input__wrapper.last {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between !important;
+  align-items: center;
+}
+
+.button-pdf {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: auto;
+  background: #3366cc !important;
+}
+.link-icon {
+  font-size: 1.5rem !important;
+  margin-right: 1rem;
+}
+.add-new {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gray-color) !important;
+}
+.delete__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.delete__icon {
+  font-size: 4rem;
+  margin-bottom: 3rem;
+}
+.delete__container p {
+  font-size: 2.2rem;
+  margin-bottom: 1rem;
+}
+.delete__container p span {
+  font-size: 2.2rem;
+  font-weight: bold;
+}
+.btn-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-container button {
+  margin: 1.5rem;
+  padding: 1rem;
+  outline: none;
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+.cancel__button {
+  background: var(--gray-color) !important;
+  color: var(--white-color);
+}
+.delete__button {
+  background: #c70000;
+  color: var(--white-color);
+}
+.content-container a {
+  font-size: 1.4rem;
+}
+.info__message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.7rem;
+  width: 100%;
+  background: rgb(107, 154, 38);
+  color: var(--white-color);
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.custom-file-upload-container {
+  display: inline-block;
+  background-color: rgb(43, 226, 226);
+  color: #000;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 16px;
+  border-radius: 1rem;
+}
+
+.custom-file-upload:hover {
+  background-color: #0c7cd5;
+}
+
+/* hide the default file input */
+#file {
+  display: none;
+}
+.file__upload__icon {
+  font-size: 3rem;
+  color: red;
+}
+@media screen and (max-width: 980px) {
+  .modal {
+    width: 55vw;
+  }
+}

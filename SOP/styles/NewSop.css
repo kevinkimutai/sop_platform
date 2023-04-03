@@ -1,0 +1,112 @@
+.custom-file-upload {
+  display: inline-block;
+  background-color: var(--green-color-1);
+  color: #fff;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.custom-file-upload:hover {
+  background-color: #0c7cd5;
+}
+
+/* hide the default file input */
+#file-upload {
+  display: none !important;
+}
+
+.sop__form-section-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  border: 1px solid green;
+  width: 100%;
+  padding: 4rem;
+  margin-bottom: 6rem;
+}
+.file-container {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+}
+.file-container p {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+.input-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border: 1px solid var(--brown-color);
+  padding: 1rem;
+}
+.input-container .input__group {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  padding: 1rem;
+}
+.input-container .input__group label {
+  font-size: 1.5rem;
+}
+.input-container .input__group input,
+.input-container .input__group textarea,
+.input-container .input__group select {
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-right: 3rem;
+  font-size: 1.5rem;
+  border: 1px solid var(--green-color-1);
+  outline: none;
+}
+.input-container .input__group select option {
+  font-size: 1.5rem;
+}
+.input-container .input__group input:focus,
+.input-container .input__group textarea:focus,
+.input-container .input__group select:focus {
+  border: 1.5px solid var(--green-color-1);
+  background: var(--green-color);
+}
+.input-container .input__group textarea {
+  min-height: 14rem;
+}
+.file__upload-icon {
+  font-size: 2.5rem;
+}
+.form-submit__btn {
+  background: var(--green-color-1);
+  padding: 1rem;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  color: var(--white-color);
+  cursor: pointer;
+}
+.input__error {
+  margin-left: auto;
+  color: red;
+  font-size: 1.5rem;
+}
+.sop__form-section-container.last_form {
+  width: 60% !important;
+  margin-left: auto;
+}
+.delete__pdf--btn {
+  padding: 1rem;
+  font-size: 1.5rem;
+  outline: none;
+  border: none;
+  color: var(--white-color);
+  background: red;
+  cursor: pointer;
+  border-radius: 0.5rem;
+}

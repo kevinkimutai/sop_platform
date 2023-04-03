@@ -1,0 +1,22 @@
+.page__numbers-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 2rem;
+}
+.page__numbers-container button {
+  font-size: 2rem;
+  margin: 0 2rem;
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: var(--green-color-1);
+  color: var(--white-color);
+  padding: 01rem;
+  border-radius: 0.4rem;
+}
+.page__numbers-container span {
+  font-size: 2rem;
+  font-weight: 500;
+}

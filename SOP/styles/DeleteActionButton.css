@@ -1,0 +1,15 @@
+.delete-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background: var(--brown-color);
+  border-radius: 0.5rem;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+.delete-icon {
+  font-size: 1.3rem;
+}
