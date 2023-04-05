@@ -1,0 +1,56 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
+
+:root {
+  --yellow-color: #f7f2e7;
+  --brown-color: #d8d3cd;
+  --black-color: #3a3b3b;
+  --green-color: #e0ece4;
+  --green-color-1: #008576;
+
+  --gray-color: #797a7e;
+  --white-color: #fff;
+
+  --font-family: "Roboto", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: smooth;
+  font-size: 62.5%;
+}
+
+body {
+  min-height: 100vh;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+.bg-color {
+  min-height: 100vh;
+  background-color: hsla(173, 100%, 26%, 1);
+  background-image: radial-gradient(
+      at 93% 25%,
+      hsla(143, 60%, 76%, 1) 0px,
+      transparent 50%
+    ),
+    radial-gradient(at 92% 71%, hsla(132, 62%, 81%, 1) 0px, transparent 50%),
+    radial-gradient(at 17% 11%, hsla(40, 0%, 93%, 1) 0px, transparent 50%),
+    radial-gradient(at 19% 99%, hsla(164, 71%, 71%, 1) 0px, transparent 50%),
+    radial-gradient(at 57% 35%, hsla(82, 23%, 73%, 1) 0px, transparent 50%);
+}
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--white-color);
+}
+.toast {
+  font-size: 6.5rem;
+}

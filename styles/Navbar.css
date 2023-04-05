@@ -1,0 +1,113 @@
+.navbar-container {
+  position: fixed;
+  top: 0;
+  z-index: 99;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  background-color: var(--yellow-color);
+}
+.logo {
+  width: 40rem;
+}
+.logo-img {
+  width: 100%;
+
+  object-fit: contain;
+}
+.navbar_user-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.user-profile__container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--brown-color);
+  border-radius: 2rem;
+}
+.user-profile__container span {
+  font-size: 01.5rem;
+  margin-right: 1rem;
+}
+.user-profile__img-container {
+  height: 4rem;
+  width: 4rem;
+  border: 1px solid var(--green-color-1);
+  border-radius: 50%;
+  margin-right: 1rem;
+  background: var(--yellow-color);
+}
+.user-profile__img-container img {
+  padding: 0.4rem;
+  width: 100%;
+  object-fit: contain;
+}
+.hamburger-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+  padding: 1rem;
+  border-radius: 01rem;
+  background: var(--brown-color);
+  cursor: pointer;
+}
+.hamburger-icon {
+  font-size: 2rem;
+}
+.sign-in__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+  padding: 1rem;
+  border-radius: 02rem;
+  background: var(--green-color-1);
+  color: var(--white-color);
+  font-size: 1.7rem;
+  cursor: pointer;
+}
+.sign-out__btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+  padding: 1rem;
+  border-radius: 02rem;
+  background: var(--green-color);
+  color: var(--black-color);
+  border: 1px solid var(--green-color-1);
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.sign-in__icon {
+  font-size: 2rem;
+  margin-right: 1rem;
+}
+
+@media screen and (max-width: 650px) {
+  .logo {
+    display: none;
+  }
+  .navbar_user-section {
+    margin-left: auto;
+  }
+  .navbar-container {
+    padding: 1rem;
+  }
+}
+
+/* @media screen and (max-width: 468px) {
+  .logo {
+    width: 25rem;
+  }
+} */

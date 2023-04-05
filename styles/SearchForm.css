@@ -1,0 +1,50 @@
+.form-section input,
+.form-section select {
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-right: 3rem;
+  font-size: 1.5rem;
+  border: 1px solid var(--green-color-1);
+  outline: none;
+}
+/* .form-section select:last-child {
+  margin-right: none;
+} */
+.form-section input {
+  color: var(--black-color);
+  transition: all 0.3s;
+}
+.form-section input {
+  min-width: 50rem;
+}
+.form-section input:focus,
+.form-section select:focus {
+  box-shadow: 1px 2px 2px #e0ece4;
+  border: 2px solid var(--green-color-1);
+  background: var(--green-color);
+}
+.form-section button {
+  background: var(--green-color-1);
+  padding: 1rem;
+  outline: none;
+  border: none;
+  color: var(--white-color);
+  cursor: pointer;
+  border-radius: 1rem;
+}
+
+.search-icon {
+  color: var(--color-white);
+  font-size: 1.5rem;
+}
+
+@media screen and (max-width: 1000px) {
+  .form-section input {
+    min-width: 30rem !important;
+  }
+}
+@media screen and (max-width: 800px) {
+  .form-section input {
+    min-width: 20rem !important;
+  }
+}

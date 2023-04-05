@@ -1,0 +1,18 @@
+.custom__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loader {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: conic-gradient(#0000 10%, #3366cc);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 8px), #000 0);
+  animation: s3 1s infinite linear;
+}
+@keyframes s3 {
+  to {
+    transform: rotate(1turn);
+  }
+}
